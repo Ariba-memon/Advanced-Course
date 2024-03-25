@@ -53,3 +53,32 @@
 // //es6 template literals
 // console.log(`my name is ${firstName} `)
 
+
+
+// session 25/MARCH/2024
+
+import express from 'express'
+
+const app = express();
+//get,put,post,delete
+// GET (حاصل کریں):
+// GET method se server se data haasil kiya jata hai.
+// GET request mein data query parameters ke through bheja jata hai ya URL ke saath attach kiya jata hai.
+app.get('/hello',(req,res) =>{
+    res.send('Ariba')
+})
+
+// POST (نشر):
+
+// POST method se naye data ko server par bheja jata hai.
+// Yeh request server ko naye resource banane ke liye istemal hota hai.
+// POST request mein data HTTP body ke through bheja jata hai jo server ke dwara accept kiya jata hai aur database ya server mein store kiya jata hai.
+app.post('/hello',(req,res) =>{
+  
+        res.send('Hello')
+     
+    })
+
+app.listen(7000,() =>{
+    console.log('Hello server is listening at http://localhost:7000')
+})
