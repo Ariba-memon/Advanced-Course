@@ -57,28 +57,136 @@
 
 // session 25/MARCH/2024
 
-import express from 'express'
+// import express from 'express'
 
-const app = express();
-//get,put,post,delete
-// GET (حاصل کریں):
-// GET method se server se data haasil kiya jata hai.
-// GET request mein data query parameters ke through bheja jata hai ya URL ke saath attach kiya jata hai.
-app.get('/hello',(req,res) =>{
-    res.send('Ariba')
-})
+// const app = express();
+// //get,put,post,delete
+// // GET (حاصل کریں):
+// // GET method se server se data haasil kiya jata hai.
+// // GET request mein data query parameters ke through bheja jata hai ya URL ke saath attach kiya jata hai.
+// app.get('/hello',(req,res) =>{
+//     res.send('Ariba')
+// })
 
 // POST (نشر):
 
 // POST method se naye data ko server par bheja jata hai.
 // Yeh request server ko naye resource banane ke liye istemal hota hai.
 // POST request mein data HTTP body ke through bheja jata hai jo server ke dwara accept kiya jata hai aur database ya server mein store kiya jata hai.
-app.post('/hello',(req,res) =>{
+// app.post('/hello',(req,res) =>{
   
-        res.send('Hello')
+//         res.send('Hello')
      
-    })
+//     })
 
-app.listen(7000,() =>{
-    console.log('Hello server is listening at http://localhost:7000')
-})
+// app.listen(7000,() =>{
+//     console.log('Hello server is listening at http://localhost:7000')
+// })
+
+
+// session 26/March/2024
+
+
+// import express from 'express'
+// const app = express();
+// app.use(express.json())
+// // app.get('/hello',(req,res) =>{
+// //     res.send('Hello')
+// // })
+// app.post('/hello',(req,res) =>{
+//     console.log(req.body)
+  
+//         res.send(`Hello ${req.body.name}`)
+//         res.send(`Hello ${req.body.role}`)
+//     })
+//     // app.get('/hello/:name/goodbye/:othername',(res,req) =>{
+//     //     const {name} = req.params;
+//     // console.log(req.params)
+//     //     res.send(`Hello ${name}`)
+//     // })
+// app.listen(7000,() =>{
+//     console.log('Hello server is listening at http://localhost:7000')
+// })
+
+// import express from 'express';
+
+// let articlesInfo = [{
+//     name: 'learn-react',
+//     upvotes: 0,
+// }, {
+//     name: 'learn-node',
+//     upvotes: 0,
+// }, {
+//     name: 'mongodb',
+//     upvotes: 0,
+// }]
+
+// const app = express();
+// app.use(express.json());
+
+// app.put('/api/articles/:name/upvote', (req, res) => {
+//     const { name } = req.params;
+//     const article = articlesInfo.find(a => a.name === name);
+
+//     if (article) {
+//         article.upvotes += 1;
+//         res.send(`The ${name} article now has ${article.upvotes} upvotes`);
+//     } else {
+//         res.send('That article doesn\'t exist');
+//     }
+// });
+
+// app.listen(8000, () => {
+//     console.log('Server is listening on port 8000');
+// });
+
+//comments code 
+
+import express from 'express';
+
+let articlesInfo = [{
+    name: 'learn-react',
+    upvotes: 0,
+    comments: [],
+}, {
+    name: 'learn-node',
+    upvotes: 0,
+    comments: [],
+}, {
+    name: 'mongodb',
+    upvotes: 0,
+    comments: [],
+}]
+
+const app = express();
+app.use(express.json());
+
+app.put('/api/articles/:name/upvote', (req, res) => {
+    const { name } = req.params;
+    const article = articlesInfo.find(a => a.name === name);
+
+    if (article) {
+        article.upvotes += 1;
+        res.send(`The ${name} article now has ${article.upvotes} upvotes!!!`);
+    } else {
+        res.send('That article doesn\'t exist');
+    }
+});
+
+app.post('/api/articles/:name/comments', (req, res) => {
+    const { name } = req.params;
+    const { postedBy, text } = req.body;
+
+    const article = articlesInfo.find(a => a.name === name);
+
+    if (article) {
+        article.comments.push({ postedBy, text });
+        res.send(article.comments);
+    } else {
+        res.send('That article doesn\'t exist!');
+    }
+});
+
+app.listen(8000, () => {
+    console.log('Server is listening on port 8000');
+});
