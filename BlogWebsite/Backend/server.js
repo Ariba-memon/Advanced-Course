@@ -1,16 +1,11 @@
 import express from 'express';
-import { MongoClient } from 'mongodb';
+import { db, connectToDb } from './db.js';
 
 const app = express();
 app.use(express.json());
 
 app.get('/api/articles/:name', async (req, res) => {
     const { name } = req.params;
-
-    const client = new MongoClient('mongodb://127.0.0.1:27017');
-    await client.connect();
-
-    const db = client.db('react-blog-db');
 
     const article = await db.collection('articles').findOne({ name });
 
@@ -21,32 +16,57 @@ app.get('/api/articles/:name', async (req, res) => {
     }
 });
 
-app.put('/api/articles/:name/upvote', (req, res) => {
+app.put('/api/articles/:name/upvote', async (req, res) => {
     const { name } = req.params;
-    const article = articlesInfo.find(a => a.name === name);
+   
+    await db.collection('articles').updateOne({ name }, {
+        $inc: { upvotes: 1 },
+    });
+    const article = await db.collection('articles').findOne({ name });
 
     if (article) {
-        article.upvotes += 1;
         res.send(`The ${name} article now has ${article.upvotes} upvotes!!!`);
     } else {
         res.send('That article doesn\'t exist');
     }
 });
 
-app.post('/api/articles/:name/comments', (req, res) => {
+app.post('/api/articles/:name/comments', async (req, res) => {
     const { name } = req.params;
     const { postedBy, text } = req.body;
 
-    const article = articlesInfo.find(a => a.name === name);
+    await db.collection('articles').updateOne({ name }, {
+        $push: { comments: { postedBy, text } },
+    });
+    const article = await db.collection('articles').findOne({ name });
 
     if (article) {
-        article.comments.push({ postedBy, text });
         res.send(article.comments);
     } else {
         res.send('That article doesn\'t exist!');
     }
 });
 
-app.listen(8000, () => {
-    console.log('Server is listening on port 8000');
-});
+connectToDb(() => {
+    console.log('Successfully connected to database!');
+    app.listen(8000, () => {
+        console.log('Server is listening on port 8000');
+    });
+})
+
+
+// import express from 'express';: Yeh line Express framework ko import karti hai, jo Node.js mein web applications banane ke liye istemal hota hai. express ko import keyword se import kiya jata hai.
+
+// import { db, connectToDb } from './db.js';: Yahaan db aur connectToDb functions ko db.js file se import kiya jata hai. Yeh functions MongoDB database ke saath interaction ke liye istemal hote hain.
+
+// const app = express();: Yeh line ek Express application object app banata hai, jo server ke functionalities ko define karta hai.
+
+// app.use(express.json());: Yeh line Express middleware ko add karta hai jo JSON parsing ke liye istemal hota hai. Isse incoming HTTP requests ke JSON bodies ko parse kiya jata hai.
+
+// app.get('/api/articles/:name', async (req, res) => {: Yeh line ek HTTP GET request endpoint ko define karta hai jo /api/articles/:name URL par kaam karta hai. Ye endpoint ek article ka naam lekar uska data retrieve karta hai.
+
+// const { name } = req.params;: Yeh line se HTTP request ke parameters se name ko extract kiya jata hai.
+
+// const article = await db.collection('articles').findOne({ name });: Yeh line MongoDB database se data retrieve karta hai. articles collection se ek specific article ka data name ke basis par retrieve kiya jata hai.
+
+// if (article) { res.json(article); } else { res.sendStatus(404); }: Yeh lines article ke exist hone ya na hone ke basis par appropriate response bhejte hain. Agar article milta hai toh uska JSON response bheja jata hai, agar nahi milta toh 404 status code bhej diya jata hai.
