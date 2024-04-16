@@ -70,3 +70,13 @@ connectToDb(() => {
 // const article = await db.collection('articles').findOne({ name });: Yeh line MongoDB database se data retrieve karta hai. articles collection se ek specific article ka data name ke basis par retrieve kiya jata hai.
 
 // if (article) { res.json(article); } else { res.sendStatus(404); }: Yeh lines article ke exist hone ya na hone ke basis par appropriate response bhejte hain. Agar article milta hai toh uska JSON response bheja jata hai, agar nahi milta toh 404 status code bhej diya jata hai.
+
+
+
+// {
+//     name:'ariba'
+// }
+
+// {
+//     'name':'ariba';
+// }
