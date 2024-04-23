@@ -55,28 +55,3 @@ connectToDb(() => {
 })
 
 
-// import express from 'express';: Yeh line Express framework ko import karti hai, jo Node.js mein web applications banane ke liye istemal hota hai. express ko import keyword se import kiya jata hai.
-
-// import { db, connectToDb } from './db.js';: Yahaan db aur connectToDb functions ko db.js file se import kiya jata hai. Yeh functions MongoDB database ke saath interaction ke liye istemal hote hain.
-
-// const app = express();: Yeh line ek Express application object app banata hai, jo server ke functionalities ko define karta hai.
-
-// app.use(express.json());: Yeh line Express middleware ko add karta hai jo JSON parsing ke liye istemal hota hai. Isse incoming HTTP requests ke JSON bodies ko parse kiya jata hai.
-
-// app.get('/api/articles/:name', async (req, res) => {: Yeh line ek HTTP GET request endpoint ko define karta hai jo /api/articles/:name URL par kaam karta hai. Ye endpoint ek article ka naam lekar uska data retrieve karta hai.
-
-// const { name } = req.params;: Yeh line se HTTP request ke parameters se name ko extract kiya jata hai.
-
-// const article = await db.collection('articles').findOne({ name });: Yeh line MongoDB database se data retrieve karta hai. articles collection se ek specific article ka data name ke basis par retrieve kiya jata hai.
-
-// if (article) { res.json(article); } else { res.sendStatus(404); }: Yeh lines article ke exist hone ya na hone ke basis par appropriate response bhejte hain. Agar article milta hai toh uska JSON response bheja jata hai, agar nahi milta toh 404 status code bhej diya jata hai.
-
-
-
-// {
-//     name:'ariba'
-// }
-
-// {
-//     'name':'ariba';
-// }
