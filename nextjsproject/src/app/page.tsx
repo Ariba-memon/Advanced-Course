@@ -1,12 +1,34 @@
 "use client"
 import Image from "next/image";
 import { CldUploadButton,CldImage } from 'next-cloudinary';
-export default function Home() {
+import { useState } from "react";
+
+
+interface UploadImage{
+ event: "success";
+ info:{public_id: string}
+}
+
+export default function Home() { 
+  //use state for images
+  const [imageId, setImageId] = useState("cld-sample-5")
   return (
+     //{******* Upload button **********}
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-     <CldUploadButton uploadPreset="ypcarjvg" />
+     <CldUploadButton uploadPreset="ypcarjvg"
+    //  onUpload ={(result,widget) =>{
+    //   // console.log('result',result)
+    //   // console.log('widget',widget)
+    //  }}
+
+    onUpload={(result) =>{
+      let res = result as UploadImage
+      setImageId(res.info.public_id)
+    }}
+     
+     />
      <CldImage
-     src="cld-sample-5"
+     src={imageId}
      alt="Description of my image"
      width='400'
      height='400'
