@@ -2,6 +2,8 @@
 import Image from "next/image";
 import { CldUploadButton,CldImage } from 'next-cloudinary';
 import { useState } from "react";
+import WhatsApp from "@/components/WhatsApp";
+import Sidebar from "@/components/Sidebar";
 
 
 interface UploadImage{
@@ -10,11 +12,15 @@ interface UploadImage{
 }
 
 export default function Home() { 
+ 
   //use state for images
   const [imageId, setImageId] = useState("cld-sample-5")
   return (
-     //{******* Upload button **********}
+    <div>
+    <Sidebar />
+   
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      
      <CldUploadButton uploadPreset="ypcarjvg"
     //  onUpload ={(result,widget) =>{
     //   // console.log('result',result)
@@ -33,6 +39,8 @@ export default function Home() {
      width='400'
      height='400'
      />
+       {/* <WhatsApp /> */}
     </main>
+    </div>
   );
 }
