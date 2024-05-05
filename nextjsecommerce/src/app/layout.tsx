@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { ClerkProvider } from "@clerk/nextjs";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,11 +18,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider publishableKey={'pk_test_aW1tdW5lLWxhZHlidWctMy5jbGVyay5hY2NvdW50cy5kZXYk'}>
     <html lang="en">
       <body className={inter.className}>
       
-        <Navbar />{children}</body>
+        <Navbar />{children}
+        <Footer /></body>
        
     </html>
     </ClerkProvider>
