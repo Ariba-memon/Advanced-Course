@@ -2,6 +2,7 @@
 import Cards from "@/components/Cards";
 import Facebook from "@/components/Facebook";
 import Hero from "@/components/Hero";
+ import Slider from "@/components/Slider";
 import Image from "next/image";
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
   <Hero />
   <Facebook />
   <Cards/>
+  <Slider />
 </div>
   );
 }
